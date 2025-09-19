@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" style="display: table; margin: auto; zoom: 1">
+<html lang="no" style="display: table; margin: auto; zoom: 1">
   <head>
     <meta charset="UTF-8" />
     <title>Task 2.2</title>
@@ -12,31 +12,35 @@
     <ol>
       <li>Where should you use constants, and where should you use variables? Can they all be constants?</li>
       <p>
-				[Replace this with you answer]
+				[Man burde bruke konstanter når verdien ikke skal endres, og variabler når verdien kan endres. De kan ikke alle være konstanter fordi noen verdier må kunne endres under programmets kjøring.]
 			</p>
       <li>How do parentheses affect the arithmetic outcome of an expression?</li>
       <p>
-				[Replace this with you answer]
+				[Paranteser påvirker rekkefølgen på operasjonene i et uttrykk, og  hvilken av operasjonene innenfor paranteser utføres først.]
 			</p>
       <li>How do we limit floating-point numbers to a given number of decimals?</li>
       <p>
-				[Replace this with you answer]
+				[Vi kan bruke metoden toFixed() for å begrense antall desimaler i et flyttall.]
 			</p>
       <li>How can we compare two floating-point values to see if they are equal (is 12.199999 the same as 12.2)?</li>
       <p>
-				[Replace this with you answer]
+				[Vi kan sammenligne to flyttall ved å sjekke om forskjellen mellom dem er mindre enn en liten terskelverdi, 
+        for eksempel 0.0001. Hvis forskjellen er mindre enn denne terskelverdien, kan vi betrakte dem som like. Dette hjelper med å unngå problemer med presisjon i flyttall.]
 			</p>
       <li>What do comparison operators return, and how can we check if they are FALSE or TRUE?</li>
       <p>
-				[Replace this with you answer]
+				[Vi kan sjekke om de returnerte verdiene er FALSE eller TRUE ved å bruke en if-setning eller ved å logge resultatet til konsollen. 
+        Vi bruker sammenligningsoperatorer som >, <, >=, <=, ===, !== for å sammenligne verdier, og de returnerer en boolsk verdi (TRUE eller FALSE) basert på resultatet av sammenligningen.]
 			</p>
       <li>How does the Math.random() function work, and what can it be used for?</li>
       <p>
-				[Replace this with you answer]
+				[Math.random() funksjonen genererer et tilfeldig desimaltall mellom 0 (inkludert) og 1 (ekskludert). 
+        Den kan brukes til å lage tilfeldige tall for spill, simuleringer, eller andre applikasjoner som krever tilfeldighet.]
 			</p>
       <li>What is modulus (%), and when do we need this operator in mathematical operations?</li>
       <p>
-				[Replace this with you answer]
+				[Modulus operatoren (%) returnerer resten av en divisjon mellom to tall. 
+        Den er nyttig når vi ønsker å finne ut om et tall er partall eller oddetall, eller når vi vil begrense et tall innenfor et bestemt område, som for eksempel å finne den gjenværende tiden i en syklus.]
 			</p>
     </ol>
 		<script type="module" src="./task_2-2.mjs" defer></script>
