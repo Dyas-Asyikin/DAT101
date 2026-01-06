@@ -15,9 +15,41 @@
     </style>
   </head>
   <body class="prevent-select">
-    <canvas id="cvs" style="background-color: antiquewhite" width="1024" height="512"></canvas>
+    <canvas id="cvs" style="background-color: rgb(233, 36, 118)" width="1024" height="512"></canvas>
   </body>
   <script defer>
+    const cvs = document.getElementById("cvs");
+    const ctx = cvs.getContext("2d");
+    const sonicPath = "sonic_sprite_sheet.png";
+    const sonicSheet = new Image();
+    const sonic2 = {x: 0, y: 127, width: 102, height: 121, count: 9};
+    let frameNumber = 0;
+    let posX = 0;
+
+    function animate() {
+      ctx.clearRect(0, 0, cvs.width, cvs.height);
+      const dx = 0, dy = 100, dw = sonic2.width, dh = sonic2.height;
+      const sx = frameNumber * sonic2.width, sy = sonic2.y, sw = sonic2.width, sh = sonic2.height;
+      ctx.drawImage(sonicSheet, sx, sy, sw, sh, dx + posX, dy, dw, dh);
+      frameNumber++;
+      posX += 40;
+      if (frameNumber >= sonic2.count) {
+        frameNumber = 0;
+      }
+      if (posX < cvs.width - sonic2.width) {
+        posX += 10;
+        console.log(posX);
+      }else {
+        posX = cvs.width - sonic2.width;
+      }
+    }
+
+    function sonicSheetLoaded() {
+      console.log("Sprite Sheet Loaded")
+      setInterval(animate, 45);
+    }
+      sonicSheet.addEventListener("load", sonicSheetLoaded);
+      sonicSheet.src = sonicPath;
 
   </script>
 </html>
