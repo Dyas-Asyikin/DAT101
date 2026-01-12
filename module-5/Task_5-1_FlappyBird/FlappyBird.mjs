@@ -1,6 +1,8 @@
 "use strict";
 // Import necessary modules
 import { TSpriteCanvas } from "libSprite";
+import { TBackground } from "./background.js";
+import { THero } from "./hero.js";
 
 //--------------- Objects and Variables ----------------------------------//
 const chkMuteSound = document.getElementById("chkMuteSound");
@@ -27,9 +29,17 @@ const SpriteInfoList = {
 };
 
 const EGameStatus = { idle: 0 };
-
+const background = new TBackground(spcvs, SpriteInfoList);
+const ground = new TBackground(spcvs, SpriteInfoList);
+const hero = new THero(spcvs, SpriteInfoList);
 
 //--------------- Functions ----------------------------------------------//
+
+function drawGame() {
+  background.draw();
+  ground.draw();
+  hero.draw();
+}
 
 function loadGame() {
   console.log("Game Loaded");
@@ -38,6 +48,7 @@ function loadGame() {
   cvs.height = SpriteInfoList.background.height; 
 
   // Overload the spcvs draw function here!
+  spcvs.onDraw = drawGame;
 
 } // end of loadGame
 
