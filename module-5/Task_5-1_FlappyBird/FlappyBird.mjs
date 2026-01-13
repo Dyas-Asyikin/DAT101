@@ -37,6 +37,7 @@ const hero = new THero(spcvs, SpriteInfoList.hero1);
 
 function animateGame() {
   hero.animate();
+  ground.animate();
 }
 
 function drawGame() {

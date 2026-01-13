@@ -25,6 +25,7 @@ export class THero extends TSprite{
     
     flap(){
         this.#speed = -3.5;
+        this.rotation = 0;
     }
 
 }

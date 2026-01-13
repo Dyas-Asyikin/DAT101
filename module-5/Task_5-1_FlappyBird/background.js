@@ -14,4 +14,13 @@ export class TBackground{
         this.#spriteBackground.draw();
         this.#spriteGround.draw();
     }
+    
+    animate(){
+        const x = this.#spriteGround.x + (this.#spriteGround.width / 2);
+        if(x < 0){
+        this.#spriteGround.x = 0;
+        } else {
+        this.#spriteGround.x --;
+        }
+    }
 }
