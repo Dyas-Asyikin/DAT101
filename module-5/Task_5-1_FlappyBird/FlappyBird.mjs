@@ -31,9 +31,13 @@ const SpriteInfoList = {
 const EGameStatus = { idle: 0 };
 const background = new TBackground(spcvs, SpriteInfoList);
 const ground = new TBackground(spcvs, SpriteInfoList);
-const hero = new THero(spcvs, SpriteInfoList);
+const hero = new THero(spcvs, SpriteInfoList.hero1);
 
 //--------------- Functions ----------------------------------------------//
+
+function animateGame() {
+  hero.animate();
+}
 
 function drawGame() {
   background.draw();
@@ -50,6 +54,8 @@ function loadGame() {
   // Overload the spcvs draw function here!
   spcvs.onDraw = drawGame;
 
+  setInterval(animateGame, 10);
+
 } // end of loadGame
 
 
@@ -57,6 +63,7 @@ function onKeyDown(aEvent) {
   switch (aEvent.code) {
     case "Space":
       console.log("Space key pressed, flap the hero!");
+      hero.flap();
       break;
   }
 } // end of onKeyDown

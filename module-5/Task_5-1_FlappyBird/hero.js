@@ -2,14 +2,29 @@
 
 import { TSprite} from "libSprite"
 
-export class THero{
-    #spriteHero;
-
+export class THero extends TSprite{
+    #gravity;
+    #speed;
     constructor(aSpcvs, aSPI){
-        this.#spriteHero = new TSprite(aSpcvs, aSPI.hero1, 50, 200);
+        super(aSpcvs, aSPI, 50, 200);
+        this.animationSpeed = 10;
+        this.#gravity = 9.81 / 10;
+        this.#speed = 0;
     }
 
-    draw(){
-        this.#spriteHero.draw();
+    animate(){
+        if(this.y < 400 - this.height){
+        this.#speed += this.#gravity * 0.1;
+        this.y += this.#speed;
+        
+            if (this.rotation < 90) {
+            this.rotation = this.#speed * 8;
+            }
+        }
     }
+    
+    flap(){
+        this.#speed = -3.5;
+    }
+
 }
