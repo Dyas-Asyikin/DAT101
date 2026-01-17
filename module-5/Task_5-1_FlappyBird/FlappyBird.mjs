@@ -3,6 +3,7 @@
 import { TSpriteCanvas } from "libSprite";
 import { TBackground } from "./background.js";
 import { THero } from "./hero.js";
+import { TObstacle } from "./obstacle.js";
 
 //--------------- Objects and Variables ----------------------------------//
 const chkMuteSound = document.getElementById("chkMuteSound");
@@ -32,18 +33,21 @@ const EGameStatus = { idle: 0 };
 const background = new TBackground(spcvs, SpriteInfoList);
 const ground = new TBackground(spcvs, SpriteInfoList);
 const hero = new THero(spcvs, SpriteInfoList.hero1);
+const obstacle = new TObstacle(spcvs, SpriteInfoList.obstacle);
 
 //--------------- Functions ----------------------------------------------//
 
 function animateGame() {
   hero.animate();
   ground.animate();
+  obstacle.animate();
 }
 
 function drawGame() {
-  background.draw();
-  ground.draw();
+  background.drawBackground();
   hero.draw();
+  obstacle.draw();
+   ground.drawGround();
 }
 
 function loadGame() {

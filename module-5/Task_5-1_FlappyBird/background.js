@@ -10,8 +10,11 @@ export class TBackground{
         this.#spriteGround = new TSprite(aSpcvs, aSPI.ground, 0, 400);
     }
 
-    draw(){
+    drawBackground(){
         this.#spriteBackground.draw();
+    }
+
+    drawGround(){
         this.#spriteGround.draw();
     }
     
