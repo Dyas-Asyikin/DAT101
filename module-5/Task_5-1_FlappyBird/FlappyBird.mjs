@@ -33,21 +33,41 @@ const EGameStatus = { idle: 0 };
 const background = new TBackground(spcvs, SpriteInfoList);
 const ground = new TBackground(spcvs, SpriteInfoList);
 const hero = new THero(spcvs, SpriteInfoList.hero1);
-const obstacle = new TObstacle(spcvs, SpriteInfoList.obstacle);
+const obstacles = [];
 
 //--------------- Functions ----------------------------------------------//
+function spawnObstacle(){
+  const obstacle = new TObstacle(spcvs, SpriteInfoList.obstacle);
+  obstacles.push(obstacle);
+  const nextTime = Math.ceil(Math.random() * 3) + 1;
+  setTimeout(spawnObstacle, nextTime * 1000);
+}
+
 
 function animateGame() {
   hero.animate();
-  ground.animate();
-  obstacle.animate();
+  background.animate();
+    let deleteObstacle = false;
+  for(let i = 0; i < obstacles.length; i++){
+    const obstacle = obstacles[i];
+    obstacle.animate();
+    if(obstacle.x < -50){
+      deleteObstacle = true;
+    }
+  }
+  if(deleteObstacle){
+    obstacles.splice(0,1);
+  }
 }
 
 function drawGame() {
   background.drawBackground();
   hero.draw();
-  obstacle.draw();
-   ground.drawGround();
+  for(let i = 0; i < obstacles.length; i++){
+    const obstacle = obstacles[i];
+    obstacle.draw();
+  }
+  background.drawGround();
 }
 
 function loadGame() {
@@ -60,6 +80,7 @@ function loadGame() {
   spcvs.onDraw = drawGame;
 
   setInterval(animateGame, 10);
+  setTimeout(spawnObstacle, 1000);
 
 } // end of loadGame
 

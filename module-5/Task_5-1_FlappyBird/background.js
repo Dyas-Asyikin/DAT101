@@ -7,7 +7,8 @@ export class TBackground{
 
     constructor(aSpcvs, aSPI){
         this.#spriteBackground = new TSprite(aSpcvs, aSPI.background, 0, 0);
-        this.#spriteGround = new TSprite(aSpcvs, aSPI.ground, 0, 400);
+        const groundPosY = aSPI.background.height - aSPI.ground.height;
+        this.#spriteGround = new TSprite(aSpcvs, aSPI.ground, 0, groundPosY);
     }
 
     drawBackground(){
@@ -20,7 +21,7 @@ export class TBackground{
     
     animate(){
         const x = this.#spriteGround.x + (this.#spriteGround.width / 2);
-        if(x < 0){
+        if(x < 50){
         this.#spriteGround.x = 0;
         } else {
         this.#spriteGround.x --;
