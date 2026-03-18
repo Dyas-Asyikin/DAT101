@@ -12,7 +12,7 @@ let part1Text = "";
 for (let i = 0; i < /*20*/ part1Array.length; /*i++*/ i = i + 1) {
     const value = part1Array[i]; // -> Hent verdi fra array
     part1Text += value + " ";    // -> Legg til verdi i tekststreng
-} else {
+}
 
 
 printOut(newLine);

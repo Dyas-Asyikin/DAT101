@@ -224,3 +224,84 @@ while (true) {
 }
 
 printOut(newLine);
+
+printOut("--- Part 7.3 ----------------------------------------------------------------------------------------------");
+/* Put your code below here!
+Simulate 6 dice and print how many "throws" it takes to get:
+● 4 of a kind + 2 of a kind*/
+
+let count3 = 0;
+while (true) {
+    let diceArray = [];
+    for (let i = 0; i < 6; i++) {
+        const die = Math.floor(Math.random() * 6) + 1;
+    }
+
+    let towerof2 = false;
+    let towerof4 = false;
+    for (let i = 1; i <= 6; i++) {
+        let count = 0;
+        for (let j in diceArray) {
+            let dice = diceArray[j];
+            if (dice === i) {
+                count++;
+            }
+        }
+        if (count == 2) {
+            towerof2 = true;
+        }
+        if (count == 4) {
+            towerof4 = true;
+        }
+
+    }
+
+    count3++;
+
+    if (towerof2 && towerof4) {
+        printOut(diceArray.toString);
+        printOut("Tårnet tok " + count3 + " kast.");
+        break;
+    }
+    
+}
+
+printOut(newLine);
+
+printOut("--- Part 7.4 ----------------------------------------------------------------------------------------------");
+/* Put your code below here!
+Simulate 6 dice and print how many "throws" it takes to get:
+● All the same, Yahtzee*/
+
+let count4 = 0;
+while (true) {
+    let diceArray = [];
+    for (let i = 0; i < 6; i++) {
+        const die = Math.floor(Math.random() * 6) + 1;
+    }
+
+    let yahtzee = false;
+    
+    for (let i = 1; i <= 6; i++) {
+        let count = 0;
+        for (let j in diceArray) {
+            let dice = diceArray[j];
+            if (dice === i) {
+                count++;
+            }
+        }
+
+        if (count == 6) {
+            yahtzee = true;
+        }
+    }
+
+    count4++;
+
+    if (yahtzee) {
+        printOut(diceArray.toString);
+        printOut("Yahtzee! Det tok " + count4 + " kast for yahtzee.");
+        break;
+    }
+
+}
