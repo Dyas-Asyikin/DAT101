@@ -31,13 +31,14 @@ const SpriteInfoList = {
   medal:        { x: 985 , y: 635 , width: 44   , height: 44  , count: 4  },
 };
 
-export const EGameStatus = { idle: 0, gaming: 1, heroIsDead: 2, gameOver: 3, 
+export const EGameStatus = { idle: 0, countDown: 1, gaming: 2, heroIsDead: 3, gameOver: 4, 
   state: 0 };
 const background = new TBackground(spcvs, SpriteInfoList);
 export const hero = new THero(spcvs, SpriteInfoList.hero1);
 const baits = [];
 const obstacles = [];
-const menu = new TMenu(spcvs, SpriteInfoList);
+export const menu = new TMenu(spcvs, SpriteInfoList);
+let obstaclePassed = false;
 
 //--------------- Functions ----------------------------------------------//
 export function startGame(){
@@ -52,12 +53,11 @@ function spawnBait(){
   const bait = new TBait(spcvs, SpriteInfoList.food);
   baits.push(bait);
   const nextTime = Math.ceil(Math.random() * 3) + 1;
-  setTimeout(spawnBait, nextTime * 3000);
+  setTimeout(spawnBait, nextTime * 1000);
   }
 }
 
 function spawnObstacle(){
-  
   if(EGameStatus.state === EGameStatus.gaming){
   const obstacle = new TObstacle(spcvs, SpriteInfoList.obstacle);
   obstacles.push(obstacle);
@@ -69,34 +69,43 @@ function spawnObstacle(){
 
 function animateGame() {
   hero.animate();
-   let eaten = -1;
-  for(let i = 0; i < baits.length; i++){
+  let eaten = -1;
+  for (let i = 0; i < baits.length; i++) {
     const bait = baits[i];
     bait.animate();
-    if(bait.hasCollided(hero.center) < 20){
-     eaten = i; 
+    if (bait.distanceTo(hero.center) < 20) {
+      eaten = i;
     }
   }
-  if(eaten >= 0){
-    console.log("Eaten! Bait left: ", baits.length);
+  if (eaten >= 0) {
+    console.log("Eaten!");
     baits.splice(eaten, 1);
+    hero.eat();
+    
   }
-  
-  if(EGameStatus.state === EGameStatus.gaming){
+
+  if (EGameStatus.state === EGameStatus.gaming) {
     background.animate();
     let deleteObstacle = false;
-    for(let i = 0; i < obstacles.length; i++){
+    for (let i = 0; i < obstacles.length; i++) {
       const obstacle = obstacles[i];
       obstacle.animate();
-      if(obstacle.x < -50){
-      deleteObstacle = true;
+      if (obstacle.x < -50) {
+        deleteObstacle = true;
+        obstaclePassed = false;
+      }else if((obstacle.x + obstacle.width) < hero.x){
+        if(!obstaclePassed){
+          menu.inGameScore(1);
+          obstaclePassed = true;
+        }
+      }
     }
-  }
-    if(deleteObstacle){
-    obstacles.splice(0,1);
+    if (deleteObstacle) {
+      obstacles.splice(0, 1);
     }
   }
 }
+
 
 function drawGame() {
   background.drawBackground();
@@ -105,13 +114,13 @@ function drawGame() {
     bait.draw();
   }
 
-  hero.draw();
   for(let i = 0; i < obstacles.length; i++){
     const obstacle = obstacles[i];
     obstacle.draw();
   }
+  
+  hero.draw();
   background.drawGround();
-
   menu.draw();
 }
 

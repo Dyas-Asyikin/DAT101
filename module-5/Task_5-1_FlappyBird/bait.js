@@ -5,16 +5,16 @@ import { EGameStatus } from "./FlappyBird.mjs";
 import { TSineWave } from "lib2d";
 
 export class TBait extends TSprite{
-    #speed;
+  #speed;
   #wave;
   constructor(aSpcvs, aSPI) {
-    super(aSpcvs, aSPI, 400, 0);
+    super(aSpcvs, aSPI, 200, 0);
     const amp = Math.ceil(Math.random() * 3);
     this.#wave = new TSineWave(amp, 1);
     this.#speed = Math.ceil(Math.random() * 10) / 10;
     this.y += this.#wave.value;
-    this.animationSpeed = this.#speed * 50;
-    this.debug = true;
+    this.animationSpeed = this.#speed * 20;
+    
   }
 
   animate() {
