@@ -11,7 +11,7 @@ export class TObstacle{
     #spDown;
     #spi;
     #sfDead;
-    constructor(aSpcvs, aSPI){
+    constructor(aSpcvs, aSPI, aIsDay = true){
         const x= 600;
         this.#spi = aSPI;
 
@@ -31,8 +31,12 @@ export class TObstacle{
 
         this.#spDown = new TSprite(aSpcvs, aSPI, x, topWithGap);
         this.#spUp = new TSprite(aSpcvs, aSPI, x, top);
-        this.#spUp.index = 3;
-        this.#spDown.index = 2;
+        this.setDayNight(aIsDay);
+    }
+
+    setDayNight(aIsDay){
+        this.#spDown.index = aIsDay ? 2 : 0;
+        this.#spUp.index = aIsDay ? 3 : 1;
     }
 
     get x(){

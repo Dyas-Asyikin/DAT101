@@ -33,14 +33,18 @@ const SpriteInfoList = {
 
 export const EGameStatus = { idle: 0, countDown: 1, gaming: 2, heroIsDead: 3, gameOver: 4, 
   state: 0 };
-const background = new TBackground(spcvs, SpriteInfoList);
+let isDayMode = true;
+const background = new TBackground(spcvs, SpriteInfoList, isDayMode);
 export const hero = new THero(spcvs, SpriteInfoList.hero1);
 const baits = [];
 const obstacles = [];
 export const menu = new TMenu(spcvs, SpriteInfoList);
 let obstaclePassed = false;
+export let aIsMuted = "";
+
 
 //--------------- Functions ----------------------------------------------//
+
 export function startGame(){
   EGameStatus.state = EGameStatus.gaming;
     setTimeout(spawnObstacle, 1000);
@@ -59,7 +63,7 @@ function spawnBait(){
 
 function spawnObstacle(){
   if(EGameStatus.state === EGameStatus.gaming){
-  const obstacle = new TObstacle(spcvs, SpriteInfoList.obstacle);
+  const obstacle = new TObstacle(spcvs, SpriteInfoList.obstacle, isDayMode);
   obstacles.push(obstacle);
   const nextTime = Math.ceil(Math.random() * 3) + 1;
   setTimeout(spawnObstacle, nextTime * 1000);
@@ -150,18 +154,42 @@ function onKeyDown(aEvent) {
   }
 } // end of onKeyDown
 
-function setSoundOnOff(){
   // Mute or unmute the game sound based on checkbox
-
+  export function setSoundOnOff(aEvent) {
+  if (document.getElementById("chkMuteSound").checked) {
+    console.log("Sound muted");
+    aIsMuted = true;
+  } else {
+    console.log("Sound unmuted");
+    aIsMuted = false;
+  }
+  menu.setSoundMute(aIsMuted);
 } // end of setSoundOnOff
+
 
 function setDayNight(aEvent){ 
   // Set day or night mode based on radio buttons
   // Day mode is when value is 1, night mode is 0, you can use this as a boolean, 1=true, 0=false
-  // e.g., isDayMode = (aEvent.target.value == 1);
+  isDayMode = aEvent.target.value === "1";
+  background.setDayNight(isDayMode);
+  for (const obstacle of obstacles) {
+    obstacle.setDayNight(isDayMode);
+  }
   console.log(`Day/Night mode changed: ${aEvent.target.value}`);
 
 } // end of setDayNight
+
+export function gameOver() {
+  EGameStatus.state = EGameStatus.gameOver;
+  menu.showGameover();
+}
+
+export function restartGame() {
+  hero.restart();
+  EGameStatus.state = EGameStatus.countDown;
+  obstacles.length = 0;
+  baits.length = 0;
+}
 
 //--------------- Main Code ----------------------------------------------//
 chkMuteSound.addEventListener("change", setSoundOnOff);

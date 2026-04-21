@@ -1,7 +1,7 @@
 "use strict";
 
 import { TSprite} from "libSprite"
-import { EGameStatus, menu } from "./FlappyBird.mjs";
+import { EGameStatus, menu, aIsMuted, gameOver, restartGame } from "./FlappyBird.mjs";
 import { TSineWave } from "lib2d";
 import { TSoundFile } from "libSound";
 
@@ -43,6 +43,7 @@ export class THero extends TSprite{
       }
             else{
             EGameStatus.state = EGameStatus.gameOver;
+            gameOver();
             this.animationSpeed = 0;
             }
              }else if(EGameStatus.state === EGameStatus.idle){
@@ -51,6 +52,7 @@ export class THero extends TSprite{
     } // end of animate
 
         eat(){
+        if (!aIsMuted) {
         if (this.#sfEat === null){
         this.#sfEat = new TSoundFile(sfEat);
         }else{ 
@@ -58,14 +60,25 @@ export class THero extends TSprite{
         }
         this.#sfEat.play();
         }
+        }
     
         dead(){
-        this.#sfHeroisDead = new TSoundFile(sfHeroisDead);
-        this.#sfHeroisDead.play();
+            if (!aIsMuted) {
+            this.#sfHeroisDead = new TSoundFile(sfHeroisDead);
+            this.#sfHeroisDead.play();
+            }
         }
-
+    
         flap(){
         this.#speed = -3; // give an instant upward speed
         this.rotation = -30; // tilt up;
+        }
+
+        restart(){
+        this.x = 100;
+        this.y = 200;
+        this.#speed = 0;
+        this.rotation = 0;
+        this.animationSpeed = 15;
         }
 }
